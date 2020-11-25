@@ -3,12 +3,11 @@ const Cartao = (props) => (
     <div className="flex flex-row h-9/12 rounded-t-lg pt-10 px-4">
       <div className="flex flex-1 mx-3">
         <img
-          className="rounded-full object-center h-24 w-28 md:h-32 md:w-32 shadow-lg"
-          src={{uri:props.imagem}}
-        />
+          className=" h-24 w-28 md:h-32 md:w-32 shadow-lg"
+          src={{uri:'http://images-na.ssl-images-amazon.com/images/I/51ww12gnYbL._SX334_BO1,204,203,200_.jpg'}} />
       </div>
       <div className="flex flex-1 flex-col">
-        <h1 className="text-blue-900 font-bold text-xl mb-2">nome do filme</h1>
+        <h1 className="text-blue-900 font-bold text-xl mb-2">nome </h1>
         <h1 className="text-blue-900 font-bold text-xl mb-2">
           nome do diretor
         </h1>

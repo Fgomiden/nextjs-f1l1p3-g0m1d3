@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import axios from "axios";
 import Nav from "../components/nav";
 import Cartao from "../components/cartao";
@@ -6,54 +7,126 @@ import Cartao from "../components/cartao";
 export default function IndexPage() {
   const [filmes, setFilmes] = useState([]);
 
-  const getMovie = async (id) => {
+  const getMovies = async () => {
     try {
-      const data = await axios.get(`https://swapi.dev/api/films/1/`);
-      setFilmes(data);
+      const response = await axios.get(
+        `https://swapi.dev/api/films/?format=json`
+      );
+      setFilmes(response.data);
+      //console.log(JSON.stringify(response.data));
     } catch (error) {
-      console.log("Deu ruim ->", error);
+      // handle error
+      console.log(error.message);
     }
   };
+  // console.log(filmes);
   useEffect(() => {
-    getMovie();
+    getMovies();
   }, []);
-  console.log(filmes);
+  const Movies = [
+    {
+      id: 1,
+      title: "A New Hope",
+      episode_id: 4,
+      director: "George Lucas",
+      producer: "Gary Kurtz, Rick McCallum",
+      release_date: "1977-05-25",
+      image: "https://images-na.ssl-images-amazon.com/images/I/81aA7hEEykL.jpg",
+    },
+    {
+      id: 2,
+      title: "The Empire Strikes Back",
+      episode_id: 5,
+      director: "Irvin Kershner",
+      producer: "Gary Kurtz, Rick McCallum",
+      release_date: "1977-05-25",
+      image: "https://images-na.ssl-images-amazon.com/images/I/81aA7hEEykL.jpg",
+    },
+    {
+      id: 3,
+      title: "Return of the Jedi",
+      episode_id: 6,
+      director: "Richard Marquand",
+      producer: "Gary Kurtz, Rick McCallum",
+      release_date: "1977-05-25",
+      image: "https://images-na.ssl-images-amazon.com/images/I/81aA7hEEykL.jpg",
+    },
+    {
+      id: 4,
+      title: "Return of the Jedi",
+      episode_id: 6,
+      director: "Richard Marquand",
+      producer: "Gary Kurtz, Rick McCallum",
+      release_date: "1977-05-25",
+      image: "https://images-na.ssl-images-amazon.com/images/I/81aA7hEEykL.jpg",
+    },
+    {
+      id: 5,
+      title: "Return of the Jedi",
+      episode_id: 6,
+      director: "Richard Marquand",
+      producer: "Gary Kurtz, Rick McCallum",
+      release_date: "1977-05-25",
+      image: "https://images-na.ssl-images-amazon.com/images/I/81aA7hEEykL.jpg",
+    },
+    {
+      id: 6,
+      title: "Return of the Jedi",
+      episode_id: 6,
+      director: "Richard Marquand",
+      producer: "Gary Kurtz, Rick McCallum",
+      release_date: "1977-05-25",
+      image: "https://images-na.ssl-images-amazon.com/images/I/81aA7hEEykL.jpg",
+    },
+  ];
   return (
-    <div>
-      <Nav />
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-        {filmes.map((item) => (
-          <div className="flex flex-col m-4 h-60 w-72 shadow-lg md:h-72 md:w-96">
-            <div className="flex flex-row h-9/12 rounded-t-lg pt-10 px-4">
-              <div className="flex flex-1 mx-3">
-                <img
-                  className="rounded-full object-center h-24 w-28 md:h-32 md:w-32 shadow-lg"
-                  src={{ uri: item.image }}
-                />
-              </div>
-              <div className="flex flex-1 flex-col">
-                <h1 className="text-blue-900 font-bold text-xl mb-2">
-                  {item.title}
-                </h1>
-                <h1 className="text-blue-900 font-bold text-xl mb-2">
-                  nome do diretor
-                </h1>
-                <p className="text-gray-700 text-base">nome do produtor</p>
-                <p className="text-gray-700 text-base">numero do filme</p>
-                <p className="text-gray-700 text-base">data de lancamento</p>
-              </div>
+    <div className="bg-black flex flex-col items-center justify-center">
+      {Movies.map((item) => (
+        <div
+          className="w-full h-40"
+          key={item.id}
+          //styles={{ backgroundImage: `url(/sw4.jpg)` }}
+        >
+          <div
+            className="flex flex-1 w-full h-full"
+            styles={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+          >
+            <div className="flex flex-1">
+              <Image
+                src="/sw4.jpg"
+                alt="Picture of the author"
+                width={300}
+                height={300}
+                layout="responsive"
+              />
             </div>
-            <div className="flex flex-row h-3/12 items-center justify-end rounded-b-lg">
-              <button
-                href="/"
-                className="py-3 px-4 focus:outline-none focus:shadow-outline w-5 shadow-lg"
-              >
-                Ver Personagens
-              </button>
+            <div className="flex flex-1">
+              <div className="px-4 py-2">
+                <div className="text-2xl text-white font-bold">
+                  Star Wars {item.episode_id}: {item.title}
+                </div>
+                <div className="text-sm text-white">
+                  Diretor: {item.director}
+                </div>
+                <div className="text-sm text-white">
+                  Produtor: {item.producer}
+                </div>
+                <div className="text-sm text-white">
+                  Lançamento: {item.release_date}
+                </div>
+                <div className="mb-2">
+                  <a
+                    href="/Personagens"
+                    className="font-bold leading-tight text-sm text-gray-100 hover:text-gray-100"
+                  >
+                    Ver Personagens
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
