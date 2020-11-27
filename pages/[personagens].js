@@ -7,18 +7,34 @@ import Cartao from "../components/cartao";
 
 export default function Personagens() {
   const [personagens, setPersonagens] = useState([]);
-  //async (id)
-  //people/${id}/
-  const getPeople = async () => {
-    const response = await axios
-      .get(`https://swapi.dev/api/people/?format=json`)
-      .catch((err) => console.log("Erro:", err));
-    setPersonagens(response.data.results);
+  const [currentPeople, setCurrentPeople] = useState([]);
+  const router = useRouter();
+  const peopleId = router.query.peopleId;
+  //console.log("peopelId:", peopleId);
+
+  const getPersonagens = async () => {
+    {
+      peopleId.map(async (item) => {
+        const response = await axios
+          .get(`${item}`)
+          //.get(`https://swapi.dev/api/people/${peopleId}?format=json`)
+          .catch((err) => console.log("Erro:", err));
+        setPersonagens(response.data);
+      });
+    }
   };
+
+  // const getCurrentPeople = async () => {
+  //   await setCurrentPeople(personagens.push(response.data));
+  // };
+
   useEffect(() => {
-    getPeople();
+    getPersonagens();
+    //getCurrentPeople();
   }, []);
-  console.log("personagnes:", personagens);
+
+  //console.log("personagens:", personagens);
+  console.log("current:", currentPeople);
   return (
     <div>
       {/* <Nav /> */}

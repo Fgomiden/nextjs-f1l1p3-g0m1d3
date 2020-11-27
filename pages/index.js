@@ -11,7 +11,7 @@ export default function IndexPage() {
 
   const getMovies = async () => {
     const response = await axios
-      .get(`https://swapi.dev/api/films/?format=json`)
+      .get(`https://swapi.dev/api/films/`)
       .catch((err) => console.log("Erro:", err));
     setFilmes(response.data.results);
   };
@@ -19,10 +19,7 @@ export default function IndexPage() {
   useEffect(() => {
     getMovies();
   }, []);
-  //console.log("Filmes:", filmes);
-
-  const router = useRouter();
-  console.log(router);
+  //console.log("Filmes:", filmes[1].characters);
 
   return (
     <div className=" flex flex-col  items-center justify-center">
@@ -55,7 +52,15 @@ export default function IndexPage() {
                 Lançamento: {item.release_date}
               </div>
               <div className="mb-2">
-                <Link href={`/personagens`}>
+                <Link
+                  href={{
+                    pathname: `/[personagens]`,
+                    query: {
+                      personagens: `${id}`,
+                      peopleId: filmes[id].characters,
+                    },
+                  }}
+                >
                   <a className="font-bold leading-tight text-sm text-gray-100 hover:text-gray-100">
                     Ver Personagens
                   </a>
@@ -75,5 +80,7 @@ export default function IndexPage() {
   imagem={item.image}
 /> 
 
-${encodeURIComponent(item.id)}*/
+${encodeURIComponent(item.id)}
+as={"/personagens/" + item.title}
+*/
 }
