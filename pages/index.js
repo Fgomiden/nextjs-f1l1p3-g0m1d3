@@ -19,7 +19,7 @@ export default function IndexPage() {
   useEffect(() => {
     getMovies();
   }, []);
-  //console.log("Filmes:", filmes[1].characters);
+  console.log("Filmes:", filmes);
 
   return (
     <div className=" flex flex-col  items-center justify-center">

@@ -10,35 +10,45 @@ export default function Personagens() {
   const [currentPeople, setCurrentPeople] = useState([]);
   const router = useRouter();
   const peopleId = router.query.peopleId;
-  //console.log("peopelId:", peopleId);
-
+  console.log("peopelId:", peopleId.length);
+  //.get(`https://swapi.dev/api/people/${peopleId}?format=json`)
+  /*
+  peopleId: [
+				"http://swapi.dev/api/people/1/",
+				"http://swapi.dev/api/people/2/",
+				"http://swapi.dev/api/people/3/",
+				"http://swapi.dev/api/people/4/",
+				"http://swapi.dev/api/people/5/",]
+  */
   const getPersonagens = async () => {
     {
-      peopleId.map(async (item) => {
-        const response = await axios
-          .get(`${item}`)
-          //.get(`https://swapi.dev/api/people/${peopleId}?format=json`)
-          .catch((err) => console.log("Erro:", err));
-        setPersonagens(response.data);
-      });
+      for (var x = 0; x < peopleId.length; x++)
+        peopleId.map(async (item) => {
+          const response = await axios
+            .get(`${item}`)
+            //  .get(`https://swapi.dev/api/people/`)
+            .catch((err) => console.log("Erro:", err));
+          setPersonagens(response.data); //Object.values(response.data)
+        });
     }
   };
 
   // const getCurrentPeople = async () => {
-  //   await setCurrentPeople(personagens.push(response.data));
+  //     await setCurrentPeople(personagens);
+
   // };
 
   useEffect(() => {
     getPersonagens();
-    //getCurrentPeople();
+    // getCurrentPeople();
   }, []);
 
-  //console.log("personagens:", personagens);
-  console.log("current:", currentPeople);
+  console.log("personagens:", [personagens]);
+  //console.log("current:", currentPeople);
   return (
     <div>
       {/* <Nav /> */}
-      {personagens.map((item, id) => (
+      {[personagens].map((item, id) => (
         <div
           style={{ width: 500 }}
           className="flex m-5"
