@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Nav from "../components/nav";
 import Cartao from "../components/cartao";
-import Link from "next/link";
 
 export default function IndexPage() {
   const [filmes, setFilmes] = useState([]);
@@ -19,7 +19,7 @@ export default function IndexPage() {
   useEffect(() => {
     getMovies();
   }, []);
-  console.log("Filmes:", filmes);
+  //console.log("Filmes:", filmes);
 
   return (
     <div className=" flex flex-col  items-center justify-center">
@@ -80,7 +80,6 @@ export default function IndexPage() {
   imagem={item.image}
 /> 
 
-${encodeURIComponent(item.id)}
 as={"/personagens/" + item.title}
 */
 }
