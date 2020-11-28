@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Nav from "../components/nav";
-import Cartao from "../components/cartao";
+import Header from "../components/Header";
+//import Cartao from "../components/CartaoFilme";
 
 export default function Personagens() {
   const [personagens, setPersonagens] = useState([]);
@@ -39,12 +39,12 @@ export default function Personagens() {
   //console.log("personagens:", personagens);
   //slice(1) para tirar a primeira posição que tava um array vazio
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
-      {/* <Nav /> */}
-      <>
+    <div className="flex flex-1 flex-col items-center justify-center bg-black">
+      <Header titulo="Personagens" />
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {currentPeople.slice(1).map((item, id) => (
           <div style={{ width: 500 }} className="flex m-5" key={id}>
-            <div className="flex flex-1 bg-yellow-200 items-center justify-center">
+            <div className="flex flex-1 items-center justify-center">
               <Image
                 src="/sw4.jpg"
                 alt="Picture of the author"
@@ -53,7 +53,7 @@ export default function Personagens() {
                 className="object-contain"
               />
             </div>
-            <div className="flex flex-1 bg-yellow-700">
+            <div className="flex flex-1">
               <div className="px-4 py-2">
                 <div className="text-xl text-white font-bold">{item.name}</div>
                 <div className="text-sm text-white">Altura: {item.height}</div>
@@ -75,7 +75,7 @@ export default function Personagens() {
             </div>
           </div>
         ))}
-      </>
+      </div>
     </div>
   );
 }
