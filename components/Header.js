@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 
+//Componente Header usado na tela de filme e de personagens
+//Recebe a propriedade titulo
 export default function Header({ titulo }) {
   return (
     <header className="flex flex-1 flex-row container ">
       <div className="flex w-full">
-        <div className="flex flex-1 justify-center md:justify-end mx-10">
+        <div className="flex flex-1 justify-center md:justify-end mx-0 sm:mx-10">
           <Link href="/">
             <a>
               <Image
@@ -18,7 +20,7 @@ export default function Header({ titulo }) {
             </a>
           </Link>
         </div>
-        <div className="flex flex-1 justify-start items-center">
+        <div className="flex flex-1 justify-center md:justify-start items-center">
           <h1 className="font-bold text-white text-2xl">{titulo}</h1>
         </div>
       </div>

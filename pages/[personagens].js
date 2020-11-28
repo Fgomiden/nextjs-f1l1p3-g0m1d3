@@ -3,17 +3,26 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Header from "../components/Header";
-//import Cartao from "../components/CartaoFilme";
 
 export default function Personagens() {
+  //personagens: varaivel onde é armazenado o objeto de cada personagem. Ex: Object{name:"Luke", ...}
+  //setPersonagens: coloca a resposta da requisicao get na varaivel personagens
   const [personagens, setPersonagens] = useState([]);
-  const [currentPeople, setCurrentPeople] = useState([]);
-  const router = useRouter();
-  const peopleId = router.query.peopleId;
 
+  //listaPersonagens: aramazena todos os objetos dos personagens em um array
+  const [listaPersonagens] = useState([]);
+
+  //permite trazer props da tela dos filmes
+  const router = useRouter();
+
+  //recebe o array com os links API dos personagens
+  const linksApi = router.query.peopleId;
+  //console.log("Links API:", linksApi);
+
+  //funcao que faz requisacao de cada api de personagem
   const getPersonagens = async () => {
     {
-      peopleId.map(async (item) => {
+      linksApi.map(async (item) => {
         const response = await axios
           .get(`${item}`)
           .catch((err) => console.log("Erro:", err));
@@ -22,9 +31,9 @@ export default function Personagens() {
     }
   };
 
-  const getCurrentPeople = async () => {
-    //coloca os objetos personagens dentro do array
-    await currentPeople.push(personagens);
+  const listarPersonagens = () => {
+    //coloca os objetos personagens dentro do array listaPersonagens
+    listaPersonagens.push(personagens);
   };
 
   useEffect(() => {
@@ -32,21 +41,24 @@ export default function Personagens() {
   }, []);
 
   useEffect(() => {
-    getCurrentPeople();
-  }, [personagens]); //a funcao getCurrentPeople vai ser chamada sempre qnd tiver items no array personagens
+    listarPersonagens();
+  }, [personagens]); //a funcao listarPersonagens vai ser chamada sempre quando tiver items no array personagens
 
-  //console.log("current:", currentPeople);
   //console.log("personagens:", personagens);
-  //slice(1) para tirar a primeira posição que tava um array vazio
+  //console.log("lista personagens:", listaPersonagens);
+
+  //objetos personagens que estao armazenados no listapersonagens sao exibidos com o map.
+  //slice(1) para tirar a primeira posição que é um array vazio
+
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-black">
       <Header titulo="Personagens" />
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {currentPeople.slice(1).map((item, id) => (
-          <div style={{ width: 500 }} className="flex m-5" key={id}>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+        {listaPersonagens.slice(1).map((item, id) => (
+          <div className="lg:flex rounded-xl shadow-md m-10" key={id}>
             <div className="flex flex-1 items-center justify-center">
               <Image
-                src="/sw4.jpg"
+                src="/profile.png"
                 alt="Picture of the author"
                 width={200}
                 height={200}
@@ -55,22 +67,26 @@ export default function Personagens() {
             </div>
             <div className="flex flex-1">
               <div className="px-4 py-2">
-                <div className="text-xl text-white font-bold">{item.name}</div>
-                <div className="text-sm text-white">Altura: {item.height}</div>
-                <div className="text-sm text-white">Massa: {item.mass}</div>
-                <div className="text-sm text-white">
+                <div className="text-xl text-white font-bold mb-5">
+                  {item.name}
+                </div>
+                <div className="text-md text-white">
+                  Altura: {item.height} cm
+                </div>
+                <div className="text-md text-white">Peso: {item.mass} kg</div>
+                <div className="text-md text-white">
                   Cor do Cabelo: {item.hair_color}
                 </div>
-                <div className="text-sm text-white">
+                <div className="text-md text-white">
                   Cor da Pele: {item.skin_color}
                 </div>
-                <div className="text-sm text-white">
+                <div className="text-md text-white">
                   Cor dos Olhos: {item.eye_color}
                 </div>
-                <div className="text-sm text-white">
+                <div className="text-md text-white">
                   Nascimento: {item.birth_year}
                 </div>
-                <div className="text-sm text-white">Genero: {item.gender}</div>
+                <div className="text-md text-white">Gênero: {item.gender}</div>
               </div>
             </div>
           </div>
