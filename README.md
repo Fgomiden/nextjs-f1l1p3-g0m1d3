@@ -1,6 +1,6 @@
-# Site usando API SWAPI
+# Aplicação WEB Next JS utilizando a API SWAPI
 
-## Instalacao
+## Instalação
 
 ```bash
 npm install
@@ -15,3 +15,4 @@ npm start
 # or
 yarn dev
 ```
+Acesse: http://localhost:3000
