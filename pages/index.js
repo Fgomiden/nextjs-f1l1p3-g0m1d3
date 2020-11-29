@@ -6,25 +6,33 @@ import { imgFilmes } from "../images/Imagens";
 import moment from "moment";
 
 export default function IndexPage() {
+  //filmes: variavel onde fica armazenado o array com os objetos que vem da api/films
+  //setFilmes: coloca a resposta do axios get dentro da variavel filmes
   const [filmes, setFilmes] = useState([]);
 
+  //funcao que faz a requisicao get a api/films e poe o resultado na variavel filmes
   const getMovies = async () => {
     const response = await axios
       .get(`https://swapi.dev/api/films/`)
       .catch((err) => console.log("Erro:", err));
-    setFilmes(response.data.results);
+    setFilmes(response.data.results); //resposta da api sendo armazenada na variavel filmes 
   };
 
+  //useEffect executa a funcao getMovies
   useEffect(() => {
     getMovies();
-  }, []);
-  //console.log("Filmes:", imgFilmes[1]);
-
+  },[]); //o segundo parametro [] indica ao useEffect ser executado apenas uma vez
+  //sem esse parametro o array seria chamado varias vezes
+  console.log("Filmes:", filmes);
+  
+  
+  //grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 garante a responsividade para diferentes tamanhos de tela
+  //moment(item.release_date).format("DD/MM/YYYY") converte a data que estava no formato ano/mes/dia para dia/mes/ano
   return (
     <div className="flex flex-1 flex-col justify-center items-center bg-black">
       <Header titulo="Filmes" />
       <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        {filmes.map((item, id) => {
+        {filmes.map((item, id) => { //exibe os itens que estao no array filmes
           const linkImage = imgFilmes[id]; //pega o array dos links das imagens associando com id do array da api
           return (
             <div
@@ -47,16 +55,14 @@ export default function IndexPage() {
                     <div className="text-md">Diretor: {item.director}</div>
                     <div className="text-md">Produtor: {item.producer}</div>
                     <div className="text-md mb-5">
-                      Lançamento:{" "}
-                      {moment(item.release_date).format("DD/MM/YYYY")}
+                      Lançamento: {moment(item.release_date).format("DD/MM/YYYY")}
                     </div>
                     <div className="mb-2">
                       <Link
                         as={"/personagens/" + item.title} //apelido na url ficar com o nome do filme
                         href={{
-                          pathname: `/[personagens]`, //encaminha para a tela personagens
+                          pathname: `/personagens`, //encaminha para a tela personagens
                           query: {
-                            personagens: `${id}`, //manda o id respectivo ao filme selecionado
                             peopleId: filmes[id].characters, // manda os personagens respectivos ao filme selecionado
                           },
                         }}

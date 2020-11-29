@@ -22,11 +22,11 @@ export default function Personagens() {
   //funcao que faz requisacao de cada api de personagem
   const getPersonagens = async () => {
     {
-      linksApi.map(async (item) => {
+      linksApi.map(async (item) => { //exibe cada link de api/people do filme selecionado
         const response = await axios
-          .get(`${item}`)
+          .get(`${item}`) //requisicao get de cada api/people
           .catch((err) => console.log("Erro:", err));
-        await setPersonagens(response.data);
+        setPersonagens(response.data); //armazena o object na variavel personagens
       });
     }
   };
@@ -38,7 +38,7 @@ export default function Personagens() {
 
   useEffect(() => {
     getPersonagens();
-  }, []);
+  }, []); //a funcao getPersonagens vai ser chamada apenas uma vez
 
   useEffect(() => {
     listarPersonagens();
@@ -50,6 +50,7 @@ export default function Personagens() {
   //objetos personagens que estao armazenados no listapersonagens sao exibidos com o map.
   //slice(1) para tirar a primeira posição que é um array vazio
 
+  //grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 garante a responsividade para diferentes tamanhos de tela
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-black">
       <Header titulo="Personagens" />
@@ -59,7 +60,7 @@ export default function Personagens() {
             <div className="flex flex-1 items-center justify-center">
               <Image
                 src="/profile.png"
-                alt="Picture of the author"
+                alt="Perfil personagem"
                 width={200}
                 height={200}
                 className="object-contain"
