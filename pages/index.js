@@ -29,7 +29,7 @@ export default function IndexPage() {
   //grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 garante a responsividade para diferentes tamanhos de tela
   //moment(item.release_date).format("DD/MM/YYYY") converte a data que estava no formato ano/mes/dia para dia/mes/ano
   return (
-    <div className="flex flex-1 flex-col justify-center items-center bg-black">
+    <div className="flex flex-1 flex-col justify-center items-center">
       <Header titulo="Filmes" />
       <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         {filmes.map((item, id) => { //exibe os itens que estao no array filmes
@@ -63,7 +63,7 @@ export default function IndexPage() {
                         href={{
                           pathname: `/personagens`, //encaminha para a tela personagens
                           query: {
-                            peopleId: filmes[id].characters, // manda os personagens respectivos ao filme selecionado
+                            people: filmes[id].characters, // manda os personagens respectivos ao filme selecionado
                           },
                         }}
                       >

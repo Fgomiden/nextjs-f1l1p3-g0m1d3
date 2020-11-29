@@ -5,6 +5,14 @@ import Image from "next/image";
 import Header from "../components/Header";
 
 export default function Personagens() {
+  //permite trazer props da tela dos filmes
+  const router = useRouter();
+
+  //linksPersonagens: variavel onde é armazenado os links api de cada personagem.
+  //router.query.people é o array de personagens do filme selecionado
+  const [linksPersonagens] = useState(router.query.people);
+  //console.log("Links personagens:", linksPersonagens);
+
   //personagens: varaivel onde é armazenado o objeto de cada personagem. Ex: Object{name:"Luke", ...}
   //setPersonagens: coloca a resposta da requisicao get na varaivel personagens
   const [personagens, setPersonagens] = useState([]);
@@ -12,17 +20,11 @@ export default function Personagens() {
   //listaPersonagens: aramazena todos os objetos dos personagens em um array
   const [listaPersonagens] = useState([]);
 
-  //permite trazer props da tela dos filmes
-  const router = useRouter();
-
-  //recebe o array com os links API dos personagens
-  const linksApi = router.query.peopleId;
-  //console.log("Links API:", linksApi);
-
   //funcao que faz requisacao de cada api de personagem
   const getPersonagens = async () => {
     {
-      linksApi.map(async (item) => { //exibe cada link de api/people do filme selecionado
+      linksPersonagens.map(async (item) => {
+        //exibe cada link de api/people do filme selecionado
         const response = await axios
           .get(`${item}`) //requisicao get de cada api/people
           .catch((err) => console.log("Erro:", err));
@@ -52,7 +54,7 @@ export default function Personagens() {
 
   //grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 garante a responsividade para diferentes tamanhos de tela
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-black">
+    <div className="flex flex-1 flex-col items-center justify-center">
       <Header titulo="Personagens" />
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         {listaPersonagens.slice(1).map((item, id) => (
