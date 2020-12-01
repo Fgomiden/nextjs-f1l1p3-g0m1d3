@@ -6,28 +6,28 @@ import { imgFilmes } from "../images/Imagens";
 import moment from "moment";
 
 export default function IndexPage() {
-  //filmes: variavel onde fica armazenado o array com os objetos que vem da api/films
-  //setFilmes: coloca a resposta do axios get dentro da variavel filmes
+  //filmes: variável onde fica armazenado o array com os objetos que vem da api/films
+  //setFilmes: coloca a resposta da requisição get do axios dentro da variável filmes
   const [filmes, setFilmes] = useState([]);
 
-  //funcao que faz a requisicao get a api/films e poe o resultado na variavel filmes
+  //função que faz a requisição get a api/films e põe o resultado na variável filmes
   const getMovies = async () => {
     const response = await axios
       .get(`https://swapi.dev/api/films/`)
       .catch((err) => console.log("Erro:", err));
-    setFilmes(response.data.results); //resposta da api sendo armazenada na variavel filmes 
+    setFilmes(response.data.results); //resposta da api sendo armazenada na variável filmes 
   };
 
   //useEffect executa a funcao getMovies
   useEffect(() => {
     getMovies();
   },[]); //o segundo parametro [] indica ao useEffect ser executado apenas uma vez
-  //sem esse parametro o array seria chamado varias vezes
+  //sem esse parâmetro o array seria chamado várias vezes
   console.log("Filmes:", filmes);
   
   
   //grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 garante a responsividade para diferentes tamanhos de tela
-  //moment(item.release_date).format("DD/MM/YYYY") converte a data que estava no formato ano/mes/dia para dia/mes/ano
+  //moment(item.release_date).format("DD/MM/YYYY") converte a data que estava no formato ano/mês/dia para dia/mês/ano
   return (
     <div className="flex flex-1 flex-col justify-center items-center">
       <Header titulo="Filmes" />
@@ -63,7 +63,7 @@ export default function IndexPage() {
                         href={{
                           pathname: `/personagens`, //encaminha para a tela personagens
                           query: {
-                            people: filmes[id].characters, // manda os personagens respectivos ao filme selecionado
+                            people: filmes[id].characters, // manda os personagens referentes ao filme selecionado
                           },
                         }}
                       >

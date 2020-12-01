@@ -5,7 +5,7 @@ import Image from "next/image";
 //Recebe a propriedade titulo
 export default function Header({ titulo }) {
   return (
-    <header className="flex flex-1 flex-row container ">
+    <header className="flex flex-1 flex-row container">
       <div className="flex w-full">
         <div className="flex flex-1 justify-center md:justify-end mx-0 sm:mx-10">
           <Link href="/">

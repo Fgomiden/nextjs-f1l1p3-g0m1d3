@@ -1,3 +1,4 @@
+//Array de imagens dos filmes na ordem 4, 5, 6, 1, 2 e 3
 const imgFilmes = [
   "https://images-na.ssl-images-amazon.com/images/I/81aA7hEEykL.jpg",
 
